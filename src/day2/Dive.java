@@ -19,7 +19,7 @@ public class Dive {
     FileInputStream inputStream = new FileInputStream(path);
     Scanner scan = new Scanner(inputStream);
     
-    while(scan.hasNextLine()){
+    while(scan.hasNextLine()) {
       String input = scan.nextLine();
       String[] split = input.split("\\s");
       if(split.length >= 2) {
@@ -50,6 +50,36 @@ public class Dive {
     vertical = down - up;
     
     System.out.println(vertical * horizontal); 
+  }
+  
+  public void runB()  throws FileNotFoundException {
+  	Integer aim = 0;
+  	Integer horizontal = 0;
+  	Integer vertical = 0;
+  	
+		FileInputStream inputStream = new FileInputStream(path);
+		Scanner scan = new Scanner(inputStream);
+		
+		while(scan.hasNextLine()) {
+			String input = scan.nextLine();
+      String[] split = input.split("\\s");
+      
+      if(split.length >= 2) {
+      	Integer value = Integer.parseInt(split[1]);
+        if(split[0].contains("forward")) {
+        	horizontal += value;
+        	vertical += (value * aim);
+        } else if (split[0].contains("down")) {
+        	aim += value;
+        } else if (split[0].contains("up")) {
+        	aim -= value;
+        }
+      }      
+		}
+		
+		System.out.println(horizontal * vertical); 			
+		
+		scan.close();
   }
 
 }
