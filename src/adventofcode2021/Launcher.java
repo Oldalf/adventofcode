@@ -21,21 +21,16 @@ public class Launcher {
 		
 		// day 1
 		SonarSweep sonarSweep = new SonarSweep();
-		try {
-			sonarSweep.runA();
-			sonarSweep.runB();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		sonarSweep.runA();
+		sonarSweep.runB();
 		
 		// day 2.
 		Dive dive = new Dive();
-		try {
-      dive.runA();
-      dive.runB();
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
+		dive.runA();
+		dive.runB();
+		
+		// day 3.
+		
 
 	}
 }

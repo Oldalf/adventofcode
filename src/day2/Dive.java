@@ -1,39 +1,59 @@
 package day2;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class Dive {
+import adventofcode2021.AdventDay;
+
+public class Dive implements AdventDay {
   final static private String path = "inputs/2.txt";
- 
-  private LinkedList<Integer> forwardCommands = new LinkedList<Integer>();
-  private LinkedList<Integer> downCommands = new LinkedList<Integer>();
-  private LinkedList<Integer> upCommands = new LinkedList<Integer>();
+  private LinkedList<String> input = new LinkedList<String>();
   
   private int horizontal = 0;
   private int vertical = 0;
   
-  public void runA() throws FileNotFoundException {
-    FileInputStream inputStream = new FileInputStream(path);
-    Scanner scan = new Scanner(inputStream);
+  public Dive() {
+  	try {
+			BufferedReader inputStream = new BufferedReader(new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8));
+			
+			String line;
+			while((line = inputStream.readLine()) != null) {
+				input.add(line);				
+			}
+			
+			inputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+  }
+  
+  public void runA() {  
+    LinkedList<Integer> forwardCommands = new LinkedList<Integer>();
+    LinkedList<Integer> downCommands = new LinkedList<Integer>();
+    LinkedList<Integer> upCommands = new LinkedList<Integer>();
     
-    while(scan.hasNextLine()) {
-      String input = scan.nextLine();
-      String[] split = input.split("\\s");
-      if(split.length >= 2) {
-        if(split[0].contains("forward")) {
-          forwardCommands.add(Integer.parseInt(split[1]));
-        } else if (split[0].contains("down")) {
-          downCommands.add(Integer.parseInt(split[1]));
-        } else if (split[0].contains("up")) {
-          upCommands.add(Integer.parseInt(split[1]));
-        }
-      }
-    }
+    @SuppressWarnings("unchecked")
+		LinkedList<String> clone = (LinkedList<String>) input.clone();
     
-    scan.close();
+    clone.stream().forEach((value) -> {
+    	String[] split = value.split("\\s");
+	    if(split.length >= 2) {
+	      if(split[0].contains("forward")) {
+	        forwardCommands.add(Integer.parseInt(split[1]));
+	      } else if (split[0].contains("down")) {
+	        downCommands.add(Integer.parseInt(split[1]));
+	      } else if (split[0].contains("up")) {
+	        upCommands.add(Integer.parseInt(split[1]));
+	      }
+	    }
+    });  
+    
     
     horizontal = forwardCommands
         .stream()
@@ -49,37 +69,34 @@ public class Dive {
     
     vertical = down - up;
     
-    System.out.println(vertical * horizontal); 
+    System.out.println("Day2 A: "+ vertical * horizontal); 
   }
   
-  public void runB()  throws FileNotFoundException {
-  	Integer aim = 0;
+  public void runB() {
+  	Integer aim = new Integer(0);
   	Integer horizontal = 0;
   	Integer vertical = 0;
   	
-		FileInputStream inputStream = new FileInputStream(path);
-		Scanner scan = new Scanner(inputStream);
-		
-		while(scan.hasNextLine()) {
-			String input = scan.nextLine();
-      String[] split = input.split("\\s");
-      
-      if(split.length >= 2) {
-      	Integer value = Integer.parseInt(split[1]);
+  	
+  	@SuppressWarnings("unchecked")
+		LinkedList<String> clone = (LinkedList<String>) input.clone();
+  	
+  	for(String value: clone) {
+  		String[] split = value.split("\\s");
+    	if(split.length >= 2) {
+      	Integer val = Integer.parseInt(split[1]);
         if(split[0].contains("forward")) {
-        	horizontal += value;
-        	vertical += (value * aim);
+        	horizontal += val;
+        	vertical += (val * aim);
         } else if (split[0].contains("down")) {
-        	aim += value;
+        	aim += val;
         } else if (split[0].contains("up")) {
-        	aim -= value;
+        	aim -= val;
         }
-      }      
-		}
-		
-		System.out.println(horizontal * vertical); 			
-		
-		scan.close();
+      }  		
+  	}
+
+		System.out.println("day2 B: " + horizontal * vertical); 			
   }
 
 }
