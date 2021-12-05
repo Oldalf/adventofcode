@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import day1.SonarSweep;
 import day2.Dive;
+import day3.BinaryDiagnostic;
 
 public class Launcher {
 	private static int iterations;
@@ -30,7 +31,9 @@ public class Launcher {
 		dive.runB();
 		
 		// day 3.
-		
+		BinaryDiagnostic binaryDiagnostic = new BinaryDiagnostic();
+		binaryDiagnostic.runA();
+		binaryDiagnostic.runB();
 
 	}
 }
