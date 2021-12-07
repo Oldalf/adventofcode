@@ -1,11 +1,11 @@
 package adventofcode2021;
 
-import java.io.FileNotFoundException;
 import java.util.Arrays;
 
 import day1.SonarSweep;
 import day2.Dive;
 import day3.BinaryDiagnostic;
+import day5.HydrothermalVents;
 
 public class Launcher {
 	private static int iterations;
@@ -34,6 +34,16 @@ public class Launcher {
 		BinaryDiagnostic binaryDiagnostic = new BinaryDiagnostic();
 		binaryDiagnostic.runA();
 		binaryDiagnostic.runB();
+		
+		
+		
+		
+		
+		// day 5
+		HydrothermalVents hydrothermalVent = new HydrothermalVents();
+		hydrothermalVent.runA();
+		hydrothermalVent.runB();
+		
 
 	}
 }
