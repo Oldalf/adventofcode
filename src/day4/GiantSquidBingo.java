@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import adventofcode2021.AdventDay;
 
 public class GiantSquidBingo implements AdventDay {
-	final static private String path = "inputs/4.txt";
+	final static private String path = "inputs/test.txt";
 
 	private LinkedList<Integer> draws = new LinkedList<Integer>();
 	private LinkedList<Integer[][]> boards = new LinkedList<Integer[][]>();
@@ -84,6 +84,7 @@ public class GiantSquidBingo implements AdventDay {
 							}
 						}
 					}
+					break;
 				}
 
 				// col
@@ -105,22 +106,30 @@ public class GiantSquidBingo implements AdventDay {
 							}
 						}
 					}
+					break;
 				}
 			}
 		}
 
 
 		System.out.println("got to the end after: " + drawn.size() + " draws");
-		drawn.stream().forEach(value -> System.out.print(value + " - "));
+		System.out.print("drawn: ");
+		drawn.stream().forEach(value -> System.out.print(value + " "));
 		System.out.println("");
-		winningLine.stream().forEach(value -> System.out.print(value + " - "));
+		
+		System.out.print("winningLine: ");
+		winningLine.stream().forEach(value -> System.out.print(value + " "));
 		System.out.println("");
-
 
 		LinkedList<Integer> flatBoard = Arrays.stream(winnerBoard).flatMap(o -> Arrays.stream(o))
 				.collect(Collectors.toCollection(LinkedList::new));
 		
+		System.out.print("board: ");
 		flatBoard.stream().forEach(v -> System.out.print(v + " - "));
+		System.out.println("");
+		
+		System.out.print("unmarked ");
+		flatBoard.stream().filter(value -> !drawn.contains(value)).forEach(v -> System.out.print(v + " "));
 		System.out.println("");
 
 		Integer unmarkedSum = flatBoard.stream().filter(value -> !drawn.contains(value)).reduce(0, Integer::sum);

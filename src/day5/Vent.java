@@ -15,34 +15,71 @@ public class Vent {
 		this.y1 = y1;
 		this.y2 = y2;
 	}
-	
+
 	public boolean isStraight() {
 		return x1 == x2 || y1 == y2;
 	}
-	
+
 	public LinkedList<Coordinate> getStraightLineCoordinates() {
 		LinkedList<Coordinate> retVal = new LinkedList<Coordinate>();
 
-		if(x1 == x2) {
+		if (x1 == x2) {
 			int small = y1 > y2 ? y2 : y1;
-			int large = y1 > y2 ? y1 : y2;			
-			
-			for(int i = small; i <= large; i++) {
+			int large = y1 > y2 ? y1 : y2;
+
+			for (int i = small; i <= large; i++) {
 				retVal.add(new Coordinate(x1, i));
 			}
-			
+
 			return retVal;
-		} else if(y1 == y2) {
+		} else if (y1 == y2) {
 			int small = x1 > x2 ? x2 : x1;
-			int large = x1 > x2 ? x1 : x2;			
-			
-			for(int i = small; i <= large; i++) {
+			int large = x1 > x2 ? x1 : x2;
+
+			for (int i = small; i <= large; i++) {
 				retVal.add(new Coordinate(i, y1));
 			}
-			
+
 			return retVal;
 		} else {
-			return null;			
+			return null;
+		}
+	}
+
+	public LinkedList<Coordinate> getLineCoordinates() {
+		LinkedList<Coordinate> retVal = new LinkedList<Coordinate>();
+
+		if (x1 == x2) {
+			int small = y1 > y2 ? y2 : y1;
+			int large = y1 > y2 ? y1 : y2;
+
+			for (int i = small; i <= large; i++) {
+				retVal.add(new Coordinate(x1, i));
+			}
+
+			return retVal;
+		} else if (y1 == y2) {
+			int small = x1 > x2 ? x2 : x1;
+			int large = x1 > x2 ? x1 : x2;
+
+			for (int i = small; i <= large; i++) {
+				retVal.add(new Coordinate(i, y1));
+			}
+
+			return retVal;
+		} else {
+			int difference = Math.abs(y1 - y2);
+			boolean xIncreasing = x1 < x2;
+			boolean yIncreasing = y1 < y2;
+			
+			for(int i = 0; i <= difference; i++) {
+				int x3 = xIncreasing ? x1 + i : x1 - i;
+				int y3 = yIncreasing ? y1 + i : y1 - i;
+				retVal.add(new Coordinate(x3, y3));
+
+			}
+
+			return retVal;
 		}
 	}
 }

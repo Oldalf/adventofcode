@@ -30,4 +30,9 @@ public class Coordinate {
 	  return Objects.hash(X, Y);
 	}
 
+	@Override
+	public String toString() {
+		return "Coordinate [X=" + X + ", Y=" + Y + "]";
+	}
+
 }
