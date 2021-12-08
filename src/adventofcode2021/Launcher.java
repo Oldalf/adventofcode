@@ -6,6 +6,7 @@ import day1.SonarSweep;
 import day2.Dive;
 import day3.BinaryDiagnostic;
 import day5.HydrothermalVents;
+import day4.GiantSquidBingo;
 
 public class Launcher {
 	private static int iterations;
@@ -35,9 +36,10 @@ public class Launcher {
 		binaryDiagnostic.runA();
 		binaryDiagnostic.runB();
 		
-		
-		
-		
+    // day 4.
+    GiantSquidBingo squidBingo = new GiantSquidBingo();
+    squidBingo.runA();
+    squidBingo.runB();
 		
 		// day 5
 		HydrothermalVents hydrothermalVent = new HydrothermalVents();

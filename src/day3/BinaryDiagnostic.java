@@ -106,7 +106,7 @@ public class BinaryDiagnostic implements AdventDay {
 
 		int lifeSupportRating = co2Scrubber * oxygen;
 		
-		System.out.println("Day 3b: " + lifeSupportRating);
+		System.out.println("Day3 B: " + lifeSupportRating);
 
 	}
 
