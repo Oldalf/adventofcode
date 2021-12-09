@@ -6,6 +6,7 @@ import day1.SonarSweep;
 import day2.Dive;
 import day3.BinaryDiagnostic;
 import day5.HydrothermalVents;
+import day6.LanternFish;
 import day4.GiantSquidBingo;
 
 public class Launcher {
@@ -38,14 +39,18 @@ public class Launcher {
 		
     // day 4.
     GiantSquidBingo squidBingo = new GiantSquidBingo();
-    squidBingo.runA();
-    squidBingo.runB();
+    //squidBingo.runA();
+    //squidBingo.runB();
 		
 		// day 5
 		HydrothermalVents hydrothermalVent = new HydrothermalVents();
 		hydrothermalVent.runA();
 		hydrothermalVent.runB();
 		
+		// day 6
+		LanternFish lanternFish = new LanternFish();
+		lanternFish.runA();
+		lanternFish.runB();	
 
 	}
 }

@@ -2,13 +2,10 @@ package day2;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
-import java.util.Scanner;
-
 import adventofcode2021.AdventDay;
 
 public class Dive implements AdventDay {
