@@ -23,9 +23,6 @@ public class LanternFish implements AdventDay {
         .forEach(value -> input.add(new Fish(Integer.parseInt(value))));
 
       inputStream.close();
-      
-      input.forEach(v -> System.out.print(v.timer + " "));
-      System.out.println("");
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -57,13 +54,8 @@ public class LanternFish implements AdventDay {
     Arrays.fill(fish, 0L);
     
     for(Fish f: input) {
-      System.out.println("fish at: " + f.timer);
       fish[f.timer]++;
     }
-    
-    System.out.print("first: ");
-    Arrays.stream(fish).forEach(value -> System.out.print(value + " "));
-    System.out.println("");
     
     for(int i = 0; i < 80; i++) {
       long newGeneration = fish[0];
@@ -75,7 +67,6 @@ public class LanternFish implements AdventDay {
       fish[6] += newGeneration;
       
       fish[8] = newGeneration;
-      //System.out.println(Arrays.stream(fish).sum());
     }
     
     long sum = Arrays.stream(fish).sum();
