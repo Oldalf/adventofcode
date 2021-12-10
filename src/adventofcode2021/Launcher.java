@@ -39,9 +39,9 @@ public class Launcher {
 		binaryDiagnostic.runB();
 		
     // day 4.
-    //GiantSquidBingo squidBingo = new GiantSquidBingo();
-    //squidBingo.runA();
-    //squidBingo.runB();
+    GiantSquidBingo squidBingo = new GiantSquidBingo();
+    squidBingo.runA();
+    squidBingo.runB();
 		
 		// day 5
 		HydrothermalVents hydrothermalVent = new HydrothermalVents();

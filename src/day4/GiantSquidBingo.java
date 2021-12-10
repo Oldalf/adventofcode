@@ -38,12 +38,9 @@ public class GiantSquidBingo implements AdventDay {
 					String[] segments = Arrays.stream(line.trim().split(" ")).filter(value -> value.trim().length() > 0)
 							.toArray(size -> new String[size]);
 
-					// System.out.println("array: " + Arrays.toString(segments));
 					for (String s : segments) {
-						// System.out.print(s + " - ");
 						boardParts.add(Integer.parseInt(s));
 					}
-					// System.out.println("");
 				}
 			}
 			
@@ -51,10 +48,6 @@ public class GiantSquidBingo implements AdventDay {
 				boards.add(getBoard(boardParts));
 				boardParts.clear();				
 			}
-			
-			System.out.println("part size: " + boardParts.size());
-
-			System.out.println("size: " + boards.size());
 
 			inputStream.close();
 		} catch (IOException e) {
@@ -89,7 +82,6 @@ public class GiantSquidBingo implements AdventDay {
 								winningLine.add(board[row][2]);
 								winningLine.add(board[row][3]);
 								winningLine.add(board[row][4]);
-								System.out.println("win found, row");
 								winnerBoard = board;
 								break;
 							}
@@ -110,39 +102,17 @@ public class GiantSquidBingo implements AdventDay {
 								winningLine.add(board[2][col]);
 								winningLine.add(board[3][col]);
 								winningLine.add(board[4][col]);
-								System.out.println("win found, col");
 								winnerBoard = board;
 								break;
 							}
 						}
 					}
-					break;
 				}
 			}
 		}
 
-		System.out.println("got to the end after: " + drawn.size() + " draws");
-		System.out.print("drawn: ");
-		drawn.stream().forEach(value -> System.out.print(value + " "));
-		System.out.println("");
-
-		System.out.print("winningLine: ");
-		winningLine.stream().forEach(value -> System.out.print(value + " "));
-		System.out.println("");
-
 		LinkedList<Integer> flatBoard = Arrays.stream(winnerBoard).flatMap(o -> Arrays.stream(o))
 				.collect(Collectors.toCollection(LinkedList::new));
-
-		System.out.println("board: ");
-		Arrays.stream(winnerBoard).forEach(v -> {
-			System.out.println(Arrays.toString(v));
-		});
-		System.out.println("***");
-		System.out.println("");
-
-		System.out.print("unmarked ");
-		flatBoard.stream().filter(value -> !drawn.contains(value)).forEach(v -> System.out.print(v + " "));
-		System.out.println("");
 
 		Integer unmarkedSum = flatBoard.stream().filter(value -> !drawn.contains(value)).reduce(0, Integer::sum);
 
