@@ -57,7 +57,7 @@ public class LanternFish implements AdventDay {
       fish[f.timer]++;
     }
     
-    for(int i = 0; i < 80; i++) {
+    for(int i = 0; i < 256; i++) {
       long newGeneration = fish[0];
 
       for(int j = 1; j < 9; j++) {
