@@ -43,10 +43,10 @@ public class GiantSquidBingo implements AdventDay {
 					}
 				}
 			}
-			
-			if(boardParts.size() == 25) {
+
+			if (boardParts.size() == 25) {
 				boards.add(getBoard(boardParts));
-				boardParts.clear();				
+				boardParts.clear();
 			}
 
 			inputStream.close();
@@ -60,7 +60,6 @@ public class GiantSquidBingo implements AdventDay {
 		LinkedList<Integer> drawn = new LinkedList<Integer>();
 
 		Integer[][] winnerBoard = null;
-		LinkedList<Integer> winningLine = new LinkedList<Integer>();
 
 		int counter = 0;
 		while (drawn.size() < draws.size() && winnerBoard == null) {
@@ -72,16 +71,11 @@ public class GiantSquidBingo implements AdventDay {
 					for (int row = 0; row < 5 && winnerBoard == null; row++) {
 						for (int col = 0; col < 5; col++) {
 							if (drawn.size() == 12) {
-							}			
+							}
 							if (!drawn.contains(board[row][col])) {
 								break;
 							}
 							if (col == 4) {
-								winningLine.add(board[row][0]);
-								winningLine.add(board[row][1]);
-								winningLine.add(board[row][2]);
-								winningLine.add(board[row][3]);
-								winningLine.add(board[row][4]);
 								winnerBoard = board;
 								break;
 							}
@@ -97,11 +91,6 @@ public class GiantSquidBingo implements AdventDay {
 								break;
 							}
 							if (row == 4) {
-								winningLine.add(board[0][col]);
-								winningLine.add(board[1][col]);
-								winningLine.add(board[2][col]);
-								winningLine.add(board[3][col]);
-								winningLine.add(board[4][col]);
 								winnerBoard = board;
 								break;
 							}
@@ -122,16 +111,72 @@ public class GiantSquidBingo implements AdventDay {
 	}
 
 	public void runB() {
+		LinkedList<Integer> drawn = new LinkedList<Integer>();
 
+		LinkedList<Integer[][]> winningBoards = new LinkedList<Integer[][]>();
+
+		int counter = 0;
+		while (drawn.size() < draws.size() && boards.size() > 0) {
+			drawn.add(draws.get(counter++));
+			
+			LinkedList<Integer[][]> boardsToRemove = new LinkedList<Integer[][]>();
+
+			if (drawn.size() > 5) {
+				// row
+				for (Integer[][] board : boards) {
+					for (int row = 0; row < 5; row++) {
+						for (int col = 0; col < 5; col++) {
+							if (!drawn.contains(board[row][col])) {
+								break;
+							}
+							if (col == 4) {
+								winningBoards.add(board);
+								boardsToRemove.add(board);
+								break;
+							}
+						}
+					}
+				}
+				
+				boardsToRemove.stream().forEach(v -> boards.remove(v));
+				boardsToRemove.clear();
+
+				// col
+				for (Integer[][] board : boards) {
+					for (int col = 0; col < 5; col++) {
+						for (int row = 0; row < 5; row++) {
+							if (!drawn.contains(board[row][col])) {
+								break;
+							}
+							if (row == 4) {
+								winningBoards.add(board);
+								boardsToRemove.add(board);
+								break;
+							}
+						}
+					}
+				}
+
+				boardsToRemove.stream().forEach(v -> boards.remove(v));
+			}
+		}	
+
+		LinkedList<Integer> flatBoard = Arrays.stream(winningBoards.get(winningBoards.size() - 1))
+				.flatMap(o -> Arrays.stream(o)).collect(Collectors.toCollection(LinkedList::new));
+
+		Integer unmarkedSum = flatBoard.stream().filter(value -> !drawn.contains(value)).reduce(0, Integer::sum);
+
+		Integer score = unmarkedSum * drawn.get(drawn.size() - 1);
+
+		System.out.println("Day4 B: " + score);
 	}
 
 	public Integer[][] getBoard(LinkedList<Integer> boardParts) {
 		return new Integer[][] { boardParts.subList(0, 5).stream().toArray(size -> new Integer[size]),
-			boardParts.subList(5, 10).stream().toArray(size -> new Integer[size]),
-			boardParts.subList(10, 15).stream().toArray(size -> new Integer[size]),
-			boardParts.subList(15, 20).stream().toArray(size -> new Integer[size]),
-			boardParts.subList(20, 25).stream().toArray(size -> new Integer[size]), };
-
+				boardParts.subList(5, 10).stream().toArray(size -> new Integer[size]),
+				boardParts.subList(10, 15).stream().toArray(size -> new Integer[size]),
+				boardParts.subList(15, 20).stream().toArray(size -> new Integer[size]),
+				boardParts.subList(20, 25).stream().toArray(size -> new Integer[size]), };
 	}
 
 }
