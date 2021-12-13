@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.OptionalInt;
 import java.util.stream.Collectors;
 
 import adventofcode2021.AdventDay;
@@ -42,17 +41,12 @@ public class Crabs implements AdventDay {
 	}
 
 	public void runA() {
-		Integer min = Collections.min(inputs.keySet());
-		Integer max = Collections.max(inputs.keySet());
-
-		List<CrabPosition> positions = inputs.keySet().stream()
-				.map(v -> new CrabPosition(min, max, inputs.get(v), v))
-				.collect(Collectors.toList());
+		List<CrabPosition> positions = this.getCrabList();
 		
 		HashMap<Integer, Integer> costs = new HashMap<Integer, Integer>();
 		
 		for(CrabPosition pos: positions) {
-			pos.movingCost.entrySet().forEach(v -> {
+			pos.calculateLinearMovingCosts().entrySet().forEach(v -> {
 				Integer existing = costs.get(v.getKey());
 				
 				if(existing == null) {
@@ -69,9 +63,36 @@ public class Crabs implements AdventDay {
 	}
 
 	public void runB() {
-		// Modify crab positions, make the map a function to return
-		// based on calculations and use the added calc.
+    List<CrabPosition> positions = this.getCrabList();
+    
+    HashMap<Integer, Integer> costs = new HashMap<Integer, Integer>();
+    
+    for(CrabPosition pos: positions) {
+      pos.calculateIncreasingMovingCosts().entrySet().forEach(v -> {
+        Integer existing = costs.get(v.getKey());
+        
+        if(existing == null) {
+         costs.put(v.getKey(), v.getValue());
+        } else {
+          costs.put(v.getKey(), existing + v.getValue());         
+        }
+      });     
+    }
+      
+    Integer minCost = Collections.min(costs.values());
+    
+    System.out.println("Day7 B: " + minCost);
+	}
+	
+	private List<CrabPosition> getCrabList() {
+   Integer min = Collections.min(inputs.keySet());
+    Integer max = Collections.max(inputs.keySet());
 
+    List<CrabPosition> positions = inputs.keySet().stream()
+        .map(v -> new CrabPosition(min, max, inputs.get(v), v))
+        .collect(Collectors.toList());
+    
+    return positions;	  
 	}
 
 }
