@@ -46,7 +46,6 @@ public class Launcher {
 		// day 7
 		Crabs crabs = new Crabs();
 
-		
 		HashMap<Integer, AdventDay> solutions = new HashMap<Integer, AdventDay>();
 		solutions.put(1, sonarSweep);
 		solutions.put(2, dive);
@@ -54,7 +53,9 @@ public class Launcher {
 		solutions.put(4, squidBingo);
 		solutions.put(5, hydrothermalVent);
 		solutions.put(6, lanternFish);
-		solutions.put(7, crabs);    
+		solutions.put(7, crabs);
+		
+		solutions.put(14, crabs);
     
     
     // Run iterations.
@@ -62,6 +63,7 @@ public class Launcher {
       for(int day: days) {
         AdventDay solution = solutions.get(day);
         if(solution != null) {
+          // TODO: add a read file to interface (otherwise its cheating). 
           solution.runA();
           solution.runB();
         }
