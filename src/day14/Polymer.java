@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -12,7 +13,7 @@ import java.util.Set;
 import adventofcode2021.AdventDay;
 
 public class Polymer implements AdventDay {
-  final static private String path = "inputs/test.txt";
+  final static private String path = "inputs/14.txt";
   private HashMap<String, Integer> input = new HashMap<String, Integer>();
   private HashMap<String, String[]> formula = new HashMap<String, String[]>();
   
@@ -88,7 +89,12 @@ public class Polymer implements AdventDay {
       polymer = newPolymer;
     }
     
-    System.out.println("Day14 A: ");
+    HashMap<String, Integer> usage = this.getElementUsage(polymer);
+    
+    Integer min = Collections.min(usage.values());
+    Integer max = Collections.max(usage.values());
+    
+    System.out.println("Day14 A: " + (max-min));
   }
 
   public void runB() {
@@ -96,7 +102,25 @@ public class Polymer implements AdventDay {
   }
   
   private HashMap<String, Integer> getElementUsage(HashMap<String, Integer> polymer) {
-    return null;
+  	HashMap<String, Integer> elements = new HashMap<String, Integer>();
+  	
+  	for(Entry<String, Integer> entry: polymer.entrySet()) {
+  		String key = entry.getKey();
+  		Integer amount = entry.getValue();
+  		
+  		String[] keyParts = key.split("");
+
+  		for(String v: keyParts) {
+        Integer existing = elements.get(v);
+        if(existing != null) {
+        	elements.put(v, existing + amount);
+        } else {
+        	elements.put(v, amount);
+        }  			  			
+  		}
+  	}
+  	
+    return elements;
   }
 
 }
