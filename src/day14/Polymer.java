@@ -5,16 +5,16 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import adventofcode2021.AdventDay;
-import day5.Vent;
 
 public class Polymer implements AdventDay {
   final static private String path = "inputs/test.txt";
   private HashMap<String, Integer> input = new HashMap<String, Integer>();
+  private HashMap<String, String[]> formula = new HashMap<String, String[]>();
   
   public Polymer() {
     this.readInput();
@@ -29,7 +29,7 @@ public class Polymer implements AdventDay {
       
       String[] template = firstLine.split("");
       for(int i = 1; i < template.length; i++) {
-        String pair = template[i-1] + template[i+1];
+        String pair = template[i-1] + template[i];
         Integer existing = input.get(pair);
         if(existing != null) {
           input.put(pair, ++existing);
@@ -37,18 +37,21 @@ public class Polymer implements AdventDay {
           input.put(pair, 1);
         }
       }
-      
-      // map template map so it goes pair -> the 2 new pairs that will be created
-      // CN -> C will be in a map like this: CN -> [CC, CN] and so forth.
 
       String line;
       while ((line = inputStream.readLine()) != null) {
-        String[] c = line.split("->");
-        int[] firstPoint = Arrays.stream(c[0].split(",")).mapToInt(value -> Integer.parseInt(value.trim())).toArray();
-
-        int[] secondPoint = Arrays.stream(c[1].split(",")).mapToInt(value -> Integer.parseInt(value.trim())).toArray();
-
-        //input.add(new Vent(firstPoint[0], secondPoint[0], firstPoint[1], secondPoint[1]));
+        if(line.trim().length() > 0) {         
+          String[] c = line.split("->");
+          String key = c[0].trim();
+          String value = c[1].trim();
+          
+          String[] amendedVal = new String[] {
+              key.substring(0, 1) + value,
+              value + key.substring(1,2),
+          };
+          
+          formula.put(key, amendedVal);
+        }
       }
 
       inputStream.close();
@@ -57,12 +60,43 @@ public class Polymer implements AdventDay {
     }    
   }
 
+  @SuppressWarnings("unchecked")
   public void runA() {
-
+    HashMap<String, Integer> polymer = (HashMap<String, Integer>) input.clone();
+    
+    // for each input value, go through and move the count onto the
+    // 2 new pairs created and put in new structure.
+    
+    for(int i = 0; i < 10; i++) {
+      HashMap<String, Integer> newPolymer = new HashMap<String, Integer>();
+      
+      
+      Set<Entry<String, Integer>> set = polymer.entrySet();
+      for(Entry<String, Integer> ent: set) {
+        String[] newPoli = formula.get(ent.getKey());
+        
+        for(String poly: newPoli) {
+          Integer existing = newPolymer.get(poly);
+          if(existing != null) {
+            newPolymer.put(poly, existing + ent.getValue());
+          } else {
+            newPolymer.put(poly, ent.getValue());            
+          }
+        }
+        
+      }
+      polymer = newPolymer;
+    }
+    
+    System.out.println("Day14 A: ");
   }
 
   public void runB() {
 
+  }
+  
+  private HashMap<String, Integer> getElementUsage(HashMap<String, Integer> polymer) {
+    return null;
   }
 
 }

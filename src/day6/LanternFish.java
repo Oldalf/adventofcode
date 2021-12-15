@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import adventofcode2021.AdventDay;
 
 public class LanternFish implements AdventDay {
-  final static private String path = "inputs/test.txt";
+  final static private String path = "inputs/6.txt";
   private LinkedList<Fish> input = new LinkedList<Fish>();
 
   public LanternFish() {
