@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import day1.SonarSweep;
 import day14.Polymer;
+import day15.Chiton;
 import day2.Dive;
 import day3.BinaryDiagnostic;
 import day5.HydrothermalVents;
@@ -57,6 +58,7 @@ public class Launcher {
 		solutions.put(7, crabs);
 		
 		solutions.put(14, new Polymer());
+		solutions.put(15, new Chiton());
     
     
     // Run iterations.
