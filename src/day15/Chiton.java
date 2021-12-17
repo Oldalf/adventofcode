@@ -33,19 +33,24 @@ public class Chiton implements AdventDay {
         });
 
       String line;
-      int counter = 1;
       while ((line = inputStream.readLine()) != null) {
-        counter++;
 
         Integer[] in = Arrays.stream(line.split(""))
           .map(value -> Integer.parseInt(value))
           .toArray(Integer[]::new);
         
         for(int i = 0; i < in.length; i++) {
-          
-          
+          inputs.get(i).add(in[i]);          
         }
-        
+      }
+      
+      // print grid.
+      int size = inputs.get(0).size();
+      for(int j = 0; j < size; j++) {
+        for(int i = 0; i < inputs.size(); i++) {
+          System.out.print(inputs.get(i).get(j) + " ");
+        }        
+        System.out.println();
       }
 
       inputStream.close();
@@ -55,6 +60,8 @@ public class Chiton implements AdventDay {
   }
 
   public void runA() {
+    Integer finalX = inputs.size()-1;
+    Integer finalY = inputs.get(finalX).size()-1;
 
   }
 
